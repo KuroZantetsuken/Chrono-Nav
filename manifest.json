@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Chrono Nav",
+  "version": "1.0.2",
+  "description": "Adds newer/older videos from the current channel to the top of YouTube's recommended list.",
+  "permissions": [
+    "storage",
+    "scripting"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "chrono-nav@kuro.zantetsuken"
+    }
+  },
+  "host_permissions": [
+    "https://*.youtube.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "32": "icons/icon32.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "32": "icons/icon32.png",
+    "128": "icons/icon128.png"
+  }
+}

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chrono Nav Settings</title>
+    <meta charset="UTF-8">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap');
+
+        :root {
+            --yt-spec-font-family: "Roboto", "Arial", sans-serif;
+            --popup-width: 460px;
+            --popup-padding: 16px;
+            --font-size-base: 0.875rem; /* 14px */
+            --font-size-large: 1.125rem; /* 18px */
+            --font-size-xlarge: 1.375rem; /* 22px */
+            --font-size-small: 0.75rem;   /* 12px */
+            --logo-size: 32px;
+
+            /* Light Theme Variables */
+            --yt-spec-base-background-light: #ffffff;
+            --yt-spec-text-primary-light: #030303;
+            --yt-spec-text-secondary-light: #606060;
+            --yt-spec-call-to-action-light: #065fd4;
+            --yt-spec-divider-light: rgba(0, 0, 0, 0.1);
+            --yt-spec-input-background-light: #f1f1f1;
+            --yt-spec-input-border-light: #cccccc;
+            --yt-spec-button-filled-text-light: #ffffff;
+            --yt-spec-button-filled-hover-bg-light: #0556bf;
+            --yt-spec-success-text-light: #006400;
+            --yt-spec-error-text-light: #cc0000;
+
+            /* Dark Theme Variables */
+            --yt-spec-base-background-dark: #0f0f0f;
+            --yt-spec-text-primary-dark: #f1f1f1;
+            --yt-spec-text-secondary-dark: #aaaaaa;
+            --yt-spec-call-to-action-dark: #3ea6ff;
+            --yt-spec-divider-dark: rgba(255, 255, 255, 0.1);
+            --yt-spec-input-background-dark: #212121;
+            --yt-spec-input-border-dark: #444444;
+            --yt-spec-button-filled-text-dark: #0f0f0f;
+            --yt-spec-button-filled-hover-bg-dark: #65bfff;
+            --yt-spec-success-text-dark: #32cd32;
+            --yt-spec-error-text-dark: #ff4d4d;
+        }
+
+        body {
+            --current-bg: var(--yt-spec-base-background-light);
+            --current-text-primary: var(--yt-spec-text-primary-light);
+            --current-text-secondary: var(--yt-spec-text-secondary-light);
+            --current-call-to-action: var(--yt-spec-call-to-action-light);
+            --current-divider: var(--yt-spec-divider-light);
+            --current-input-background: var(--yt-spec-input-background-light);
+            --current-input-border: var(--yt-spec-input-border-light);
+            --current-button-filled-text: var(--yt-spec-button-filled-text-light);
+            --current-button-filled-hover-bg: var(--yt-spec-button-filled-hover-bg-light);
+            --current-success-text: var(--yt-spec-success-text-light);
+            --current-error-text: var(--yt-spec-error-text-light);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                --current-bg: var(--yt-spec-base-background-dark);
+                --current-text-primary: var(--yt-spec-text-primary-dark);
+                --current-text-secondary: var(--yt-spec-text-secondary-dark);
+                --current-call-to-action: var(--yt-spec-call-to-action-dark);
+                --current-divider: var(--yt-spec-divider-dark);
+                --current-input-background: var(--yt-spec-input-background-dark);
+                --current-input-border: var(--yt-spec-input-border-dark);
+                --current-button-filled-text: var(--yt-spec-button-filled-text-dark);
+                --current-button-filled-hover-bg: var(--yt-spec-button-filled-hover-bg-dark);
+                --current-success-text: var(--yt-spec-success-text-dark);
+                --current-error-text: var(--yt-spec-error-text-dark);
+            }
+        }
+
+        body {
+            font-family: var(--yt-spec-font-family);
+            width: var(--popup-width);
+            padding: var(--popup-padding);
+            font-size: var(--font-size-base);
+            background-color: var(--current-bg);
+            color: var(--current-text-primary);
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .extension-logo {
+            width: var(--logo-size);
+            height: var(--logo-size);
+            margin-right: 12px;
+        }
+
+        .page-title {
+            font-size: var(--font-size-xlarge);
+            font-weight: 500;
+            color: var(--current-text-primary);
+            margin: 0;
+        }
+
+        .title-divider {
+            height: 1px;
+            background-color: var(--current-divider);
+            margin-bottom: 24px;
+        }
+
+        .settings-option-renderer {
+            display: flex;
+            margin-bottom: 24px;
+            align-items: flex-start;
+        }
+
+        .settings-option-renderer:last-child {
+            margin-bottom: 0;
+        }
+
+        .option-title {
+            width: 90px; /* Adjusted width to accommodate "API Usage" */
+            margin-right: 20px;
+            font-size: var(--font-size-base);
+            font-weight: 500;
+            color: var(--current-text-primary);
+            flex-shrink: 0;
+            padding-top: 7px; /* Aligns with first line of multi-line content */
+        }
+
+        .option-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 4px;
+        }
+
+        input[type="password"]#apiKey {
+            flex-grow: 1;
+            padding: 8px 10px;
+            border: 1px solid var(--current-input-border);
+            border-radius: 4px;
+            background-color: var(--current-input-background);
+            color: var(--current-text-primary);
+            font-size: var(--font-size-base);
+            margin-right: 8px;
+            box-sizing: border-box;
+        }
+
+        input[type="password"]#apiKey::placeholder {
+            color: var(--current-text-secondary);
+        }
+
+        input[type="password"]#apiKey:focus {
+            outline: none;
+            border-color: var(--current-call-to-action);
+            box-shadow: 0 0 0 1px var(--current-call-to-action);
+        }
+
+        .yt-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 18px; /* Default for primary buttons */
+            cursor: pointer;
+            font-weight: 500;
+            font-size: var(--font-size-base);
+            font-family: var(--yt-spec-font-family);
+            text-align: center;
+            min-height: 36px;
+            box-sizing: border-box;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .yt-button-primary {
+            background-color: var(--current-call-to-action);
+            color: var(--current-button-filled-text);
+        }
+
+        .yt-button-primary:hover {
+            background-color: var(--current-button-filled-hover-bg);
+        }
+
+        .yt-button-text-link {
+            background-color: transparent;
+            color: var(--current-call-to-action);
+            padding: 8px 0; /* Reduced padding for link-style */
+            border-radius: 4px; /* More subtle radius */
+            align-self: flex-start;
+            min-height: auto; /* Allow natural height */
+            font-weight: 500; /* Keep consistent link weight */
+        }
+
+        .yt-button-text-link:hover {
+            text-decoration: underline;
+        }
+
+        .status-message {
+            font-size: var(--font-size-small);
+            min-height: calc(var(--font-size-small) + 4px);
+            margin-top: 4px;
+            color: var(--current-text-secondary);
+        }
+
+        .status-message.success {
+            color: var(--current-success-text);
+        }
+
+        .status-message.error {
+            color: var(--current-error-text);
+        }
+
+        .cache-controls, .api-usage-controls { /* Generic class for controls if needed */
+            margin-bottom: 4px;
+        }
+
+        .stats-container p { /* Common styling for stats paragraphs */
+            margin: 4px 0;
+            font-size: var(--font-size-base);
+            color: var(--current-text-secondary);
+        }
+
+        .stats-container span.stat-value { /* Common styling for stat values */
+            font-weight: 500;
+            color: var(--current-text-primary);
+        }
+
+        .disclaimer {
+            font-size: var(--font-size-small);
+            color: var(--current-text-secondary);
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+
+        .disclaimer .disclaimer-link {
+            color: var(--current-call-to-action);
+            text-decoration: none;
+        }
+
+        .disclaimer .disclaimer-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="header-container">
+            <img src="icons/icon128.png" alt="Chrono Nav Logo" class="extension-logo">
+            <h1 class="page-title">Chrono Nav</h1>
+        </div>
+        <div class="title-divider"></div>
+
+        <div class="settings-option-renderer">
+            <div class="option-title">API</div>
+            <div class="option-content">
+                <div class="input-group">
+                    <input type="password" id="apiKey" placeholder="YouTube Data API v3 (Optional)">
+                    <button id="saveApiKey" class="yt-button yt-button-primary">Save</button>
+                </div>
+                <div class="disclaimer">
+                    <a href="https://developers.google.com/youtube/v3/getting-started" target="_blank" rel="noopener noreferrer" class="disclaimer-link">Getting Started</a>
+                </div>
+                <div id="apiStatus" class="status-message"></div>
+                <div id="apiStats" class="stats-container">
+                    <p>Lifetime Requests: <span id="lifetimeRequests" class="stat-value">Loading...</span></p>
+                    <p>Daily Tokens Used: <span id="dailyTokensUsed" class="stat-value">Loading...</span></p>
+                </div>
+                <div class="disclaimer">
+                    Estimated usage.
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-option-renderer">
+            <div class="option-title">Cache</div>
+            <div class="option-content">
+                <div id="cacheStats" class="stats-container">
+                    <p>Cached Channels: <span id="cachedChannelsCount" class="stat-value">Loading...</span></p>
+                    <p>Cached Videos: <span id="cachedVideosCount" class="stat-value">Loading...</span></p>
+                </div>
+                 <div class="cache-controls">
+                    <button id="clearCache" class="yt-button yt-button-text-link">Clear Cache</button>
+                </div>
+                <div id="cacheStatus" class="status-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
